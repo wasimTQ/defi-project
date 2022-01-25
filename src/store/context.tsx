@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useMemo, useReducer } from "react";
 import Reducer from "./reducer";
-import { ContextState, EventsEnum } from "./types";
+import { ContextState, ActionType } from "./types";
 
 const initialState: ContextState = {
   events: {
@@ -22,7 +22,7 @@ export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
     if (state.alert.message.length > 0) {
       setTimeout(() => {
         dispatch({
-          type: EventsEnum.SET_ALERT,
+          type: ActionType.SET_ALERT,
           payload: {
             isError: true,
             message: "",

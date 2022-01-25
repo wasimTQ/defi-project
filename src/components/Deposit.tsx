@@ -5,7 +5,7 @@ import { NETWORK_ID } from "../helpers/constants";
 import DBankJson from "../abis/dBank.abi.json";
 import { getAddress } from "../helpers/utils";
 import { StoreContext } from "../store/context";
-import { EventsEnum } from "../store/types";
+import { ActionType } from "../store/types";
 
 export default function Deposit({ callback }: any) {
   const { dispatch } = useContext(StoreContext);
@@ -29,7 +29,7 @@ export default function Deposit({ callback }: any) {
       console.log("Error, deposit: ", e.data.message);
       if (dispatch) {
         dispatch({
-          type: EventsEnum.SET_ALERT,
+          type: ActionType.SET_ALERT,
           payload: {
             isError: true,
             message: e.data.message,

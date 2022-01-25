@@ -1,7 +1,7 @@
-import { ContextState, ContextAction, EventsEnum } from "./types";
+import { ContextState, ContextAction, ActionType } from "./types";
 export default (state: ContextState, action: ContextAction) => {
   switch (action.type) {
-    case EventsEnum.SET_DEPOSIT:
+    case ActionType.SET_DEPOSIT:
       return {
         ...state,
         events: {
@@ -10,7 +10,7 @@ export default (state: ContextState, action: ContextAction) => {
         },
       };
 
-    case EventsEnum.SET_WITHDRAW:
+    case ActionType.SET_WITHDRAW:
       return {
         ...state,
         events: {
@@ -19,13 +19,13 @@ export default (state: ContextState, action: ContextAction) => {
         },
       };
 
-    case EventsEnum.SET_ALERT:
+    case ActionType.SET_ALERT:
       return {
         ...state,
         alert: action.payload,
       };
 
-    case EventsEnum.SET_WALLET:
+    case ActionType.SET_WALLET:
       return {
         ...state,
         walletBalance: action.payload,

@@ -15,7 +15,7 @@ import Withdraw from "./Withdraw";
 import { Web3Provider } from "@ethersproject/providers";
 import Events from "./Events";
 import { StoreContext } from "../store/context";
-import { EventsEnum } from "../store/types";
+import { ActionType } from "../store/types";
 import { convertToEther, getAddress } from "../helpers/utils";
 import { DepositEvent, WithdrawEvent } from "../abis/types/DBankAbi";
 import { NETWORK_ID } from "../helpers/constants";
@@ -66,24 +66,6 @@ export default function DBank() {
     }
   };
 
-  const setDepositEvents = (events: DepositEvent[], address: string) => {
-    const payload = events.map((event) => {
-      if (event.args.user === address) {
-        return {
-          amount: event.args.etherAmount.toString(),
-          depositedAt: event.args.timeStart.toString(),
-        };
-      }
-    });
-
-    if (dispatch) {
-      dispatch({
-        type: EventsEnum.SET_DEPOSIT,
-        payload,
-      });
-    }
-  };
-
   const depositEvents = async (address?: string, fallbackAbi?: DBankAbi) => {
     let filter,
       events: DepositEvent[] = [];
@@ -109,7 +91,7 @@ export default function DBank() {
 
     if (dispatch) {
       dispatch({
-        type: EventsEnum.SET_DEPOSIT,
+        type: ActionType.SET_DEPOSIT,
         payload,
       });
     }
@@ -142,7 +124,7 @@ export default function DBank() {
 
     if (dispatch) {
       dispatch({
-        type: EventsEnum.SET_WITHDRAW,
+        type: ActionType.SET_WITHDRAW,
         payload,
       });
     }
@@ -151,10 +133,11 @@ export default function DBank() {
   const setProvider = async () => {
     await requestAccount();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    setWeb3Provider(provider);
     const accounts = await provider.listAccounts();
     const account = accounts[0];
     const acntBal = await provider.getBalance(account);
+    console.log(acntBal);
+
     setAccount({
       address: account,
       balance: acntBal.toString(),
@@ -176,11 +159,12 @@ export default function DBank() {
     // console.log(convertToEther(ethBal.toString()));
     if (dispatch) {
       dispatch({
-        type: EventsEnum.SET_WALLET,
+        type: ActionType.SET_WALLET,
         payload: ethBal.toString(),
       });
     }
 
+    setWeb3Provider(provider);
     setDBank({
       abi: dBank,
       etherBalance: ethBal.toString(),
@@ -233,7 +217,7 @@ export default function DBank() {
         <b>Balance: {convertToEther(account?.balance)}</b>
       </nav>
       <main className="py-5 px-7">
-        <h5 className="mb-4">The token address is {token?.abi.address}</h5>
+        <h5 className="mb-4">The token address is {token?.abi.address} to use on metamask </h5>
         <div className="flex gap-6">
           <div className="w-full">
             <Tab.Group>

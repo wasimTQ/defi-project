@@ -5,7 +5,7 @@ import { NETWORK_ID } from "../helpers/constants";
 import DBankJson from "../abis/dBank.abi.json";
 import { convertToEther, getAddress } from "../helpers/utils";
 import { StoreContext } from "../store/context";
-import { EventsEnum } from "../store/types";
+import { ActionType } from "../store/types";
 
 export default function Withdraw({ callback }: any) {
   const { dispatch, walletBalance } = useContext(StoreContext);
@@ -33,7 +33,7 @@ export default function Withdraw({ callback }: any) {
       console.log("Error, withdraw: ", e);
       if (dispatch) {
         dispatch({
-          type: EventsEnum.SET_ALERT,
+          type: ActionType.SET_ALERT,
           payload: {
             isError: true,
             message: e.data.message,

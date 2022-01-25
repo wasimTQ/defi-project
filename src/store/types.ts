@@ -23,14 +23,14 @@ export interface ContextState {
   dispatch?: React.Dispatch<ContextAction>;
 }
 
-export enum EventsEnum {
+export enum ActionType {
   SET_WITHDRAW,
   SET_DEPOSIT,
   SET_ALERT,
-  SET_WALLET
+  SET_WALLET,
 }
 
 export interface ContextAction {
-  type: EventsEnum;
+  type: ActionType;
   payload: any;
 }
