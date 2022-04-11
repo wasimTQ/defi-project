@@ -63,6 +63,14 @@ export default function DBank() {
         address: account,
         balance: acntBal.toString(),
       });
+
+      const ethBal = await dBank?.abi.etherBalanceOf(account);
+      if (dispatch) {
+        dispatch({
+          type: ActionType.SET_WALLET,
+          payload: ethBal?.toString(),
+        });
+      }
     }
   };
 
@@ -111,6 +119,8 @@ export default function DBank() {
 
     address = address ?? account?.address;
 
+    console.log(events.reverse());
+
     const payload = events.map((event) => {
       if (event.args.user === address) {
         return {
@@ -136,7 +146,6 @@ export default function DBank() {
     const accounts = await provider.listAccounts();
     const account = accounts[0];
     const acntBal = await provider.getBalance(account);
-    console.log(acntBal);
 
     setAccount({
       address: account,
@@ -156,7 +165,6 @@ export default function DBank() {
       provider
     );
     const ethBal = await dBank.etherBalanceOf(account);
-    // console.log(convertToEther(ethBal.toString()));
     if (dispatch) {
       dispatch({
         type: ActionType.SET_WALLET,
@@ -217,9 +225,11 @@ export default function DBank() {
         <b>Balance: {convertToEther(account?.balance)}</b>
       </nav>
       <main className="py-5 px-7">
-        <h5 className="mb-4">The token address is {token?.abi.address} to use on metamask </h5>
         <div className="flex gap-6">
-          <div className="w-full">
+          <div className="w-1/2">
+            <h5 className="mb-4">
+              Address for token is {token?.abi.address} to use on metamask{" "}
+            </h5>
             <Tab.Group>
               <Tab.List className={`border-blue-200 border rounded-lg`}>
                 {tabs.map((tab, i) => (

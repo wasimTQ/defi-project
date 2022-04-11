@@ -42,10 +42,11 @@ export default function Withdraw({ callback }: any) {
       }
     }
   };
-
+  if (Number(walletBalance) ===0 ) return <h5>You don't have a balance</h5>;
   return (
     <div>
-      Do you want to withdraw {convertToEther(walletBalance)} ETH + take interest?
+      Do you want to withdraw {convertToEther(walletBalance)} ETH + take
+      interest?
       <br></br>
       <br></br>
       <div>

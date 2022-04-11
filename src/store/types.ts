@@ -20,7 +20,7 @@ export interface ContextState {
 
   walletBalance: string;
 
-  dispatch?: React.Dispatch<ContextAction>;
+  dispatch: React.Dispatch<ContextAction>;
 }
 
 export enum ActionType {

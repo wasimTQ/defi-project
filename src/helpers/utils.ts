@@ -46,5 +46,5 @@ export const convertTimestamp = (timestamp: string) => {
   if (mins < 10) {
     mins = "0" + mins;
   }
-  return `${date.getDate()}th ${date.getHours()}:${mins}`;
+  return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} ${date.getHours()}:${mins}`;
 };

@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useMemo, useReducer } from "react";
 import Reducer from "./reducer";
 import { ContextState, ActionType } from "./types";
 
-const initialState: ContextState = {
+const initialState: any = {
   events: {
     deposit: [],
     withdraw: [],
@@ -14,7 +14,7 @@ const initialState: ContextState = {
   walletBalance: "",
 };
 
-export const StoreContext = createContext<ContextState>(initialState);
+export const StoreContext = createContext<ContextState>({} as ContextState);
 export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
 

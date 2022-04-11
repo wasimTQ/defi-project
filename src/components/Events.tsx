@@ -10,7 +10,7 @@ export default function Events() {
     <div className="flex flex-col gap-4">
       <div>
         <h4 className="text-xl">Deposits:</h4>
-        <div className="flex flex-col gap-2 mt-3">
+        <div className="flex flex-col gap-2 mt-3 max-h-60 overflow-y-scroll">
           {deposit.length > 0
             ? deposit.map((event, i) => (
                 <div className="px-4 py-1 rounded-lg bg-gray-50" key={i}>
@@ -23,12 +23,12 @@ export default function Events() {
       </div>
       <div>
         <h4 className="text-xl">Withdraws:</h4>
-        <div className="flex flex-col gap-2 mt-3">
+        <div className="flex flex-col gap-2 mt-3 max-h-60 overflow-y-scroll">
           {withdraw.length > 0
             ? withdraw.map((event, i) => (
                 <div className="px-4 py-1 rounded-lg bg-gray-50" key={i}>
                   You've earned an interest of {convertToEther(event.interest)}{" "}
-                  ETH for staking {convertToEther(event.stakedAmount)} ETH of{" "}
+                  ETH for staking {convertToEther(event.stakedAmount)} ETH for{" "}
                   {parseTime(event.depositTime)}
                 </div>
               ))
