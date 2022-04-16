@@ -21,7 +21,7 @@ export const ADDRESSES: AddressType = {
 };
 export const CHAIN_PARAMS = {
   kovan: {
-    chainId: "0x42", // A 0x-prefixed hexadecimal string
+    chainId: "0x42", 
     chainName: "Kovan",
     nativeCurrency: {
       name: "Kovan Ether",

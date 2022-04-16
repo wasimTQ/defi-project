@@ -1,5 +1,3 @@
-import { DepositEvent, WithdrawEvent } from "../abis/types/DBankAbi";
-
 export interface ContextState {
   alert: {
     isError: boolean;

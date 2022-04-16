@@ -233,30 +233,36 @@ export default function DBank() {
       <div className="flex flex-col text-xl justify-center items-center h-screen">
         <h5 className="text-3xl">The {network} network is not available ATM</h5>
         <h4>Please connect to ropsten</h4>
-        <button
-          onClick={async () => {
-            try {
-              await window.ethereum.request({
-                method: "wallet_switchEthereumChain",
-                params: [{ chainId: CHAIN_PARAMS["ropsten"].chainId }], // chainId must be in hexadecimal numbers
-              });
-            } catch (error: any) {
-              if (error.code === 4902) {
+        <div className="flex flex-col gap-4 mt-4">
+          {AVAILABLE_NETWORKS.map((network) => (
+            <button
+              onClick={async () => {
                 try {
                   await window.ethereum.request({
-                    method: "wallet_addEthereumChain",
-                    params: [CHAIN_PARAMS["ropsten"]],
+                    method: "wallet_switchEthereumChain",
+                    params: [
+                      { chainId: (CHAIN_PARAMS as any)[network].chainId },
+                    ], 
                   });
-                } catch (addError) {
-                  console.error(addError);
+                } catch (error: any) {
+                  if (error.code === 4902) {
+                    try {
+                      await window.ethereum.request({
+                        method: "wallet_addEthereumChain",
+                        params: [(CHAIN_PARAMS as any)[network]],
+                      });
+                    } catch (addError) {
+                      console.error(addError);
+                    }
+                  }
                 }
-              }
-            }
-          }}
-          className="bg-yellow-400 text-gray-900 font-semibold mb-4 mt-3"
-        >
-          Switch to ropsten
-        </button>
+              }}
+              className="bg-yellow-400 text-gray-900 font-semibold"
+            >
+              Switch to {network}
+            </button>
+          ))}
+        </div>
       </div>
     );
 
