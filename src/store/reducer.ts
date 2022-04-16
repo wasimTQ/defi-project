@@ -30,6 +30,11 @@ export default (state: ContextState, action: ContextAction) => {
         ...state,
         walletBalance: action.payload,
       };
+      case ActionType.SET_NETWORK:
+      return {
+        ...state,
+        network: action.payload,
+      };
     default:
       return { ...state };
   }

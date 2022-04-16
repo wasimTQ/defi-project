@@ -1,5 +1,6 @@
 const Token = artifacts.require("Token");
 const dBank = artifacts.require("dBank");
+const fs = require('fs')
 
 module.exports = async function(deployer) {
 	//deploy Token
@@ -16,4 +17,5 @@ module.exports = async function(deployer) {
 
 	//change token's owner/minter from deployer to dBank
 	await token.passMinterRole(dbank.address)
+
 };

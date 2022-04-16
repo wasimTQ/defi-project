@@ -12,6 +12,7 @@ const initialState: any = {
     message: "",
   },
   walletBalance: "",
+  network: "ropsten",
 };
 
 export const StoreContext = createContext<ContextState>({} as ContextState);

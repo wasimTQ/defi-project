@@ -1,21 +1,19 @@
 import { ethers } from "ethers";
 import React, { useContext } from "react";
 import { DBankAbi__factory } from "../abis/types";
-import { NETWORK_ID } from "../helpers/constants";
-import DBankJson from "../abis/dBank.abi.json";
-import { getAddress } from "../helpers/utils";
 import { StoreContext } from "../store/context";
 import { ActionType } from "../store/types";
+import { ADDRESSES } from "../helpers/constants";
 
 export default function Deposit({ callback }: any) {
-  const { dispatch } = useContext(StoreContext);
+  const { dispatch, network } = useContext(StoreContext);
   const deposit = async (amount: number) => {
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
 
       const dBank = DBankAbi__factory.connect(
-        getAddress(DBankJson.networks, NETWORK_ID),
+        ADDRESSES[network]["dBank"],
         signer
       );
       const tx = await dBank.deposit({
@@ -27,15 +25,17 @@ export default function Deposit({ callback }: any) {
       callback();
     } catch (e: any) {
       console.log("Error, deposit: ", e.data.message);
-      if (dispatch) {
-        dispatch({
-          type: ActionType.SET_ALERT,
-          payload: {
-            isError: true,
-            message: e.data.message,
-          },
-        });
-      }
+
+      dispatch({
+        type: ActionType.SET_ALERT,
+        payload: {
+          isError: true,
+          message: e.data.message.replace(
+            "VM Exception while processing transaction: revert ",
+            ""
+          ),
+        },
+      });
     }
   };
 
@@ -59,10 +59,8 @@ export default function Deposit({ callback }: any) {
           <input
             id="depositAmount"
             step="0.01"
+            min="0.01"
             type="number"
-            ref={(input) => {
-              //   this.depositAmount = input;
-            }}
             className="form-control form-control-md"
             placeholder="amount..."
             required

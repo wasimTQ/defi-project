@@ -2,16 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "Graphik";
+  src: url(/public/assets/Graphik/Graphik-Regular.woff2) format("woff2");
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  font-family: "Graphik", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @apply bg-gray-900 text-gray-50;
+}
+
+::-webkit-scrollbar {
+  appearance: none;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 appearance-none scale-50 rounded-full !important;
+  width: 2px !important;
+  scrollbar-3dlight-color: thin;
+}
+
+input {
+  @apply appearance-none bg-gray-700 text-gray-900;
+}
+
+.event-wrapper {
+  @apply bg-gray-800 p-3 rounded-lg w-1/2;
+}
+.event-wrapper h4 {
+  @apply text-xl;
+}
+.event-wrapper .scroller {
+  max-height: 60vh;
+  @apply flex flex-col gap-2 mt-3 overflow-y-scroll;
+}
+.event-wrapper .scroller .notification {
+  @apply px-4 py-1 rounded-lg bg-gray-900;
 }

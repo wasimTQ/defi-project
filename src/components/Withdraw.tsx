@@ -1,14 +1,13 @@
 import { ethers } from "ethers";
 import React, { useContext } from "react";
 import { DBankAbi__factory } from "../abis/types";
-import { NETWORK_ID } from "../helpers/constants";
-import DBankJson from "../abis/dBank.abi.json";
-import { convertToEther, getAddress } from "../helpers/utils";
+import { convertToEther } from "../helpers/utils";
 import { StoreContext } from "../store/context";
 import { ActionType } from "../store/types";
+import { ADDRESSES } from "../helpers/constants";
 
 export default function Withdraw({ callback }: any) {
-  const { dispatch, walletBalance } = useContext(StoreContext);
+  const { dispatch, walletBalance, network } = useContext(StoreContext);
   const withdraw = async (e: any) => {
     e.preventDefault();
 
@@ -17,7 +16,7 @@ export default function Withdraw({ callback }: any) {
       const signer = provider.getSigner();
 
       const dBank = DBankAbi__factory.connect(
-        getAddress(DBankJson.networks, NETWORK_ID),
+        ADDRESSES[network]["dBank"],
         signer
       );
 
@@ -31,18 +30,17 @@ export default function Withdraw({ callback }: any) {
       callback();
     } catch (e: any) {
       console.log("Error, withdraw: ", e);
-      if (dispatch) {
-        dispatch({
-          type: ActionType.SET_ALERT,
-          payload: {
-            isError: true,
-            message: e.data.message,
-          },
-        });
-      }
+
+      dispatch({
+        type: ActionType.SET_ALERT,
+        payload: {
+          isError: true,
+          message: e.data.message,
+        },
+      });
     }
   };
-  if (Number(walletBalance) ===0 ) return <h5>You don't have a balance</h5>;
+  if (Number(walletBalance) === 0) return <h5>You don't have a balance</h5>;
   return (
     <div>
       Do you want to withdraw {convertToEther(walletBalance)} ETH + take
@@ -55,7 +53,6 @@ export default function Withdraw({ callback }: any) {
           type="submit"
           className="bg-blue-400 text-white"
         >
-          {/* onClick={(e) => this.withdraw(e)} */}
           WITHDRAW
         </button>
       </div>

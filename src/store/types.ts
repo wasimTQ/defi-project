@@ -19,6 +19,7 @@ export interface ContextState {
   };
 
   walletBalance: string;
+  network: string;
 
   dispatch: React.Dispatch<ContextAction>;
 }
@@ -28,6 +29,7 @@ export enum ActionType {
   SET_DEPOSIT,
   SET_ALERT,
   SET_WALLET,
+  SET_NETWORK
 }
 
 export interface ContextAction {
