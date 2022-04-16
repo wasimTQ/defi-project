@@ -1,7 +1,7 @@
 export const TOKEN_ADDRESS = "0x3F0535143089ec5664801155Ab98Dea333941ED6";
 export const DBANK_ADDRESS = "0x43841c67A36620b794BE3240d86824bDee8323b1";
 
-export const AVAILABLE_NETWORKS = ["localhost", "ropsten"];
+export const AVAILABLE_NETWORKS = ["ropsten"];
 
 type AddressType = {
   [key: string]: {
