@@ -1,6 +1,6 @@
 ## Defi project using dapp university's dBank tutorial
 
-### [https://dbank-defi.netlify.app/](Link)
+### [https://dbank-defi.netlify.app/](https://dbank-defi.netlify.app/)
 
 ### Technologies used
 
