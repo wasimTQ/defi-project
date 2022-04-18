@@ -18,4 +18,3 @@
 
 (P.S): I didn't write the contract myself. Original credit goes to [DappUniversity's DBank tutorial](https://github.com/dappuniversity/dbank).
 I've changed all the technologies he used and rewritten the frontend myself.
-Pardon me for the ugly UI. I'll try my best to make the UI look better in the future.
